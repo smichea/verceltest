@@ -2,7 +2,6 @@
   "name": "verceltest",
   "version": "0.0.1",
   "dependencies": {
-    "pg": "^8.7.1" // Use the latest version of 'pg'
-    // other dependencies
+    "pg": "^8.7.1"
   }
 }
