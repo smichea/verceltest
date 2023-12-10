@@ -2,8 +2,11 @@ const { Client } = require('pg');
 
 module.exports = async (req, res) => {
     const client = new Client({
-        // Your PostgreSQL connection details
-        connectionString: process.env.DATABASE_URL,
+        user: process.env.POSTGRES_USER,
+        host: process.env.POSTGRES_HOST,
+        database: process.env.POSTGRES_DATABASE,
+        password: process.env.POSTGRES_PASSWORD,
+        port: 5432,
         ssl: {
             rejectUnauthorized: false
         }
@@ -17,6 +20,7 @@ module.exports = async (req, res) => {
         const result = await client.query('SELECT * FROM movies WHERE name LIKE $1', [`%${movieName}%`]);
         res.status(200).json(result.rows);
     } catch (error) {
+        console.error(error);
         res.status(500).send('Error querying the database');
     } finally {
         await client.end();
